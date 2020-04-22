@@ -1,4 +1,3 @@
-
 // Action Creater
 // In Redax, a function that returns an action is called "Action Creator"
 
