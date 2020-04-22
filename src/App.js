@@ -1,42 +1,29 @@
-import React, { Component } from "react";
-
-// function App() {
-//   return (
-//     // JSX stands for JavaScript XML.
-//     <h1>
-//       Hello, world!
-//     </h1>
-//   );
-// }
-
-// class App extends Component {
-//   render() {
-
-//     // const greeting = "Hi!";
-//     // const dom = <h1 className="foo">{greeting}</h1>;
-//     // return dom;
-    
-//     return (
-//       <React.Fragment>
-//         <label htmlFor="bar">bar</label>
-//         <input type="text" onClick={() => {console.log("Clicked!")}}/>
-//         <input type="text" onChange={() => {console.log("Changed!")}}/>
-//       </React.Fragment>
-//     )
-
-//   }
-// }
+import React from "react";
 
 const App = () => {
+  const profiles = [
+    { name: "Cray", age: 3 },
+    { name: "Sarah", age: 5 },
+    { }
+  ]
   return (
     <div>
-      <Cat />
+      {
+        profiles.map((profile, index) => {
+          return <User name={profile.name} age={profile.age} key={index}/>
+        })
+      }
     </div>
   )
 }
 
-const Cat = () => {
-  return <div>Meow!</div>
+const User = (props) => {
+return <div>Hi, I am {props.name}, and {props.age} years old!</div>
+}
+
+User.defaultProps = {
+  age: 1,
+  name: "noname"
 }
 
 export default App;
