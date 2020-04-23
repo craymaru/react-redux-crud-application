@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import _ from "lodash";
+import { Link } from "react-router-dom";
 
 import { readEvents } from "../actions";
 
@@ -10,13 +11,13 @@ class EventsIndex extends Component {
   }
 
   renderEvents() {
-    return _.map(this.props.events, event => (
+    return _.map(this.props.events, (event) => (
       <tr key={event.id}>
         <td>{event.id}</td>
         <td>{event.title}</td>
         <td>{event.body}</td>
       </tr>
-    ))
+    ));
   }
 
   render() {
@@ -31,11 +32,10 @@ class EventsIndex extends Component {
                 <th>Body</th>
               </tr>
             </thead>
-            <tbody>
-              {this.renderEvents()}
-            </tbody>
+            <tbody>{this.renderEvents()}</tbody>
           </table>
         </div>
+        <Link to="/events/new">New Events</Link>
       </React.Fragment>
     );
   }
