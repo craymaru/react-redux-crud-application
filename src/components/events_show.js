@@ -2,8 +2,19 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
 import { Link } from "react-router-dom";
+import { TextField, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { getEvent, putEvent, deleteEvent } from "../actions";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: 400,
+    },
+  },
+}));
 
 class EventsShow extends Component {
   constructor(props) {
@@ -24,11 +35,19 @@ class EventsShow extends Component {
       type,
       meta: { touched, error },
     } = field;
+    const classes = useStyles();
 
     return (
-      <div>
-        <input {...input} placeholder={label} type={type} />
-        {touched && error && <span>{error}</span>}
+      <div className={classes.root}>
+        <TextField
+          {...input}
+          label={label}
+          type={type}
+          error={touched && error}
+          helperText={touched && error}
+          fullWidth={true}
+          variant="outlined"
+        />
       </div>
     );
   }
@@ -46,25 +65,29 @@ class EventsShow extends Component {
 
   render() {
     const { handleSubmit, pristine, submitting, invalid } = this.props;
+    const styleM5 = { margin: 10 };
 
     return (
       <React.Fragment>
         <div>
           <form onSubmit={handleSubmit(this.onSubmit)}>
-            <div>
-              <Field label="Title" name="title" type="text" component={this.renderField} />
-            </div>
-            <div>
-              <Field label="Body" name="body" type="text" component={this.renderField} />
-            </div>
-
-            <div>
-              <input type="submit" value="Submit" disabled={pristine || submitting || invalid} />
-              <Link to="/">Back</Link>
-              <Link to="/" onClick={this.onDeleteClick}>
-                Delete
-              </Link>
-            </div>
+            <Field label="Title" name="title" type="text" component={this.renderField} />
+            <Field label="Body" name="body" type="text" component={this.renderField} />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              style={styleM5}
+              disabled={pristine || submitting || invalid}
+            >
+              Update
+            </Button>
+            <Button href="/" variant="contained" style={styleM5}>
+              Back
+            </Button>
+            <Button onClick={this.onDeleteClick} variant="contained" color="secondary" style={styleM5}>
+              Delete
+            </Button>
           </form>
         </div>
       </React.Fragment>
